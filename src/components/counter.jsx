@@ -1,43 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Counter = () => {
-    const [count, setCount] = useState(0)
+const Counter = ({ value, id, name, onIncrement, onDecrement, onDelete }) => {
     /*const [imageUrl, setImageUrl] = useState('https://picsum.photos/200') */
     const tags = ['tag1', 'tag2', 'tag3']
-    const formCount = () => {
-        return count === 0 ? 'Ноль' : count
+    const formValue = () => {
+        return value === 0 ? 'Ноль' : value
     }
     let classes = 'badge m-2  bg-'
-    classes += count === 0 ? 'danger' : 'primary'
-    const getBageClasses = () => {
+    classes += value === 0 ? 'danger' : 'primary'
+    const getBadgeClasses = () => {
         return classes
-    }
-    const renderTags = () => {
-        if (tags.length === 0) return 'Тегов нет'
-        return tags.map((tag) => {
-            <li key={tag}>{tag}</li>
-        })
-    }
-    const handleIncrement = productId => {
-        setCount(count + 1)
-        console.log(productId)
-    }
-    const handleDecrement = productId => {
-        if (count != 0) {
-            setCount(count - 1)
-            console.log(productId)
-        }
     }
     return (
         <React.Fragment>
-            {/*<img src={imageUrl} alt=""/> */}
-            {tags.length === 0 && 'Теги не найдеты'}
-            <ul>
-                {renderTags()}
-            </ul>
-            <span className={getBageClasses()}>{formCount()}</span>
-            <button onClick={() => handleIncrement({ id: 1 })} className='btn btn-secondary btn-sm'>Increment</button>
-            <button onClick={() => handleDecrement({ id: 1 })} className='btn btn-secondary btn-sm'>Decrement</button>
+            <div>
+                {/*<img src={imageUrl} alt=""/> */}
+                <h4>{name}</h4>
+                {tags.length === 0 && 'Теги не найдеты'}
+                <span style={{ minWidth: 50 }} className={getBadgeClasses()}>{formValue()}</span>
+                <button className='btn btn-secondary btn-sm m-1' onClick={() => onIncrement(id)}>Increment</button>
+                <button className='btn btn-secondary btn-sm m-1' onClick={() => onDecrement(id)}>Decrement</button>
+                <button className="btn btn-danger btn-sm m-1" onClick={() => onDelete(id)}>Delete</button>
+            </div>
         </React.Fragment>
     );
 }
